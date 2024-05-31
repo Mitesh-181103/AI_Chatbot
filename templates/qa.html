@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload PDF</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='qastyle.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Upload A PDF</h1>
+      <div class="landing-container">
+        <div>
+          <form method="POST" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <!-- <label for="file" class="custom-file-upload">Choose a PDF File</label> -->
+            {{form.file()}} {{form.submit()}}
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

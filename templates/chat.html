@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AI Chat</title>
+    <!-- <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='chat.css') }}"
+    /> -->
+    <link rel="stylesheet" href="/static//chat.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Style for user's message */
+      .user-message {
+        background-color: #2a1fa1; /* Blue color */
+        border-radius: 5px;
+        margin-bottom: 5px;
+        padding: 10px;
+      }
+
+      /* Style for model's response */
+      .model-message {
+        background-color: #080d33; /* Blue color */
+        border-radius: 5px;
+        margin-bottom: 5px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-messages" id="chat-messages">
+        <!-- Chat messages will be displayed here -->
+      </div>
+      <input
+        type="text"
+        class="chat-input"
+        id="user-input"
+        placeholder="Ask a question..."
+      />
+      <button class="send-button" onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+      function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        addMessage("You", userInput, "user-message"); // Add user-message class
+
+        // Display loading text
+        addLoadingMessage();
+
+        // Send the user's question to the server and get a model response
+        fetch("/chat.html", {
+          method: "POST",
+          body: JSON.stringify({ question: userInput }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const modelResponse = data.answer;
+            updateLastMessage(modelResponse, "model-message"); // Add model-message class
+            
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            updateLastMessage("An error occurred", "model-message"); // Add model-message class
+          });
+
+        // Clear the input field
+        document.getElementById("user-input").value = "";
+      }
+
+      function addMessage(sender, message, messageClass) {
+        const chatMessages = document.getElementById("chat-messages");
+        const messageDiv = document.createElement("div");
+        messageDiv.innerText = sender + ": " + message;
+        messageDiv.classList.add(messageClass); // Add the provided messageClass
+        chatMessages.appendChild(messageDiv);
+      }
+
+      function addLoadingMessage() {
+        const chatMessages = document.getElementById("chat-messages");
+        const loadingDiv = document.createElement("div");
+        loadingDiv.innerText = "Model is generating an answer...";
+        loadingDiv.classList.add('model-message')
+        chatMessages.appendChild(loadingDiv);
+      }
+
+      function updateLastMessage(message, messageClass) {
+        const chatMessages = document.getElementById("chat-messages");
+        const lastMessage = chatMessages.lastChild;
+        lastMessage.innerText = "Model: " + message;
+        lastMessage.classList.add(messageClass); // Add the provided messageClass
+      }
+
+    </script>
+  </body>
+</html>
