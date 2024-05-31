@@ -1,0 +1,70 @@
+/* styles.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('./bg.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: none;
+}
+
+.wrapper{
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 890px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal;
+}
+
+h1{
+    padding-top: 120px;
+    font-size: 64px;
+    font-weight: normal;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.landing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal;
+
+}
+
+.card {
+    width: 600px;
+    height: 300px;
+
+    color: white;
+    background-color: #000000;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 44px;
+    font-weight: 400;
+}
+
+p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+a {
+    margin-top: 15px;
+    background-color: #0032A0;
+    color: white;
+    font-weight: normal;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
